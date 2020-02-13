@@ -1,18 +1,19 @@
 import React from 'react'
+import ListElement, { IListElement } from './ListElement';
 
 interface ITopListProps {
-    results?: number[];
+    results?: IListElement[];
 }
 
-const sortter = (a: number, b: number) => {
-    return b - a;
+const sortter = (a: IListElement, b: IListElement) => {
+    return b.value - a.value;
 }
 
 const TopList = (props: ITopListProps) => {
     return (
         <ul style= {{listStyleType: "none"}}>
             {props.results?.sort(sortter).map((x, index)=> {
-                return <li key={index}>{x}</li>
+                return <ListElement key={index} new={x.new} value={x.value}/>
             })}
         </ul>
     )

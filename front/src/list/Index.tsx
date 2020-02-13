@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import TopList from './TopList';
 import ListInput from './ListInput';
+import { IListElement } from './ListElement';
 
 
 const ListContainer = () => {
-    const [resultsList, setResultsList] = useState<number[]>([]);
+    const [resultsList, setResultsList] = useState<IListElement[]>([]);
 
     const handleNewResult = (newResult: number) => {
-        setResultsList( results => [...results, newResult]);
+        setResultsList( results => {
+            results.forEach(x => x.new = false);
+            return [...results, {value: newResult, new: true}]
+        })
+            
     }
 
     return (
