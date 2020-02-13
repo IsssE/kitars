@@ -1,7 +1,10 @@
 import React, { useState, useEffect }from 'react';
 
+interface timerProps {
 
-const Timer = (): JSX.Element => {
+}
+
+const Timer = (props: timerProps ): JSX.Element => {
 
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -20,7 +23,6 @@ const Timer = (): JSX.Element => {
       let timer: null | NodeJS.Timeout = null;
     if(isActive) {
       timer = setTimeout(() => {
-        console.log("are we here?")
         setSeconds(s => s + 1);
       }, 1000);
     } else if (!isActive && seconds !== 0 )
