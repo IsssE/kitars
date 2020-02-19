@@ -1,8 +1,10 @@
 import React from 'react'
 import ListElement, { IListElement } from './ListElement';
+import CSS from 'csstype';
 
 interface ITopListProps {
     results?: IListElement[];
+    deleteElement?: (element: IListElement) => void;
 }
 
 const sortter = (a: IListElement, b: IListElement) => {
@@ -10,13 +12,21 @@ const sortter = (a: IListElement, b: IListElement) => {
 }
 
 const TopList = (props: ITopListProps) => {
+
     return (
-        <ul style= {{listStyleType: "none"}}>
-            {props.results?.sort(sortter).map((x, index)=> {
-                return <ListElement key={index} new={x.new} value={x.value}/>
+        <ul style={list}>
+            {props.results?.sort(sortter).map((x, index) => {
+                return <ListElement
+                    key={index}
+                    element={x}
+                    deleteElement={props.deleteElement}
+                />
             })}
         </ul>
     )
+}
+const list: CSS.Properties = {
+    listStyleType: "none"
 }
 
 export default TopList;

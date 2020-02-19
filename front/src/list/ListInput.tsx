@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import CSS from 'csstype';
 
 interface listInputProps {
     saveNewSubmission?: (changesAmount: number) => void;
@@ -16,7 +17,14 @@ const ListInput = (props: listInputProps) => {
     const handleSubmit = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
         event.preventDefault();
         if (props.saveNewSubmission) {
-            props.saveNewSubmission(Number.parseInt(number));
+            const parsedNumber = Number.parseInt(number); 
+            if(parsedNumber) {
+                props.saveNewSubmission(parsedNumber);
+            } else {
+                // if we want some fancy error handling for non number submit
+                // atm the input highlights red if non number
+            }
+
         }
         setNumber('');
     }
@@ -24,10 +32,16 @@ const ListInput = (props: listInputProps) => {
         <div>
             <label> Amount of single changes! </label> <br />
             <input type={"number"} value={number} onChange={handleNumberChange}></input>
-            <input type={"button"} onClick={handleSubmit} value={"Add"}></input>
+            <input type={"button"} style={addButton} onClick={handleSubmit} value={"Add"}></input>
         </div>
     );
 
+}
+
+const addButton: CSS.Properties = {
+    marginLeft: "5px",
+    border: "none",
+    
 }
 
 export default ListInput;
